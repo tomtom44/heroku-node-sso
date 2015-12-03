@@ -21,7 +21,7 @@ var session      = require('express-session');
 var uristring =
     process.env.MONGOLAB_URI ||
     process.env.MONGOHQ_URL ||
-    'mongodb://localhost/HelloMongoose';
+    'mongodb://localhost/local';
 
 // configuration ===============================================================
 //mongoose.connect(configDB.url); // connect to our database
@@ -53,7 +53,7 @@ app.set('view engine', 'ejs'); // set up ejs for templating
 //app.use(flash()); // use connect-flash for flash messages stored in session
 
 // routes ======================================================================
-//require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
+require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
 
 // launch ======================================================================
 app.listen(port);
