@@ -14,10 +14,28 @@ var cookieParser = require('cookie-parser');
 var bodyParser   = require('body-parser');
 var session      = require('express-session');
 
-var configDB = require('./config/database.js');
+//var configDB = require('./config/database.js');
+
+// Here we find an appropriate database to connect to, defaulting to
+// localhost if we don't find one.
+var uristring =
+    process.env.MONGOLAB_URI ||
+    process.env.MONGOHQ_URL ||
+    'mongodb://localhost/HelloMongoose';
 
 // configuration ===============================================================
 //mongoose.connect(configDB.url); // connect to our database
+console.log('mongo db uri : ' + uristring);
+// Makes connection asynchronously.  Mongoose will queue up database
+// operations and release them when the connection is complete.
+mongoose.connect(uristring, function (err, res) {
+    if (err) {
+        console.log ('ERROR connecting to: ' + uristring + '. ' + err);
+    } else {
+        console.log ('Succeeded connected to: ' + uristring);
+    }
+});
+
 
 // require('./config/passport')(passport); // pass passport for configuration
 
